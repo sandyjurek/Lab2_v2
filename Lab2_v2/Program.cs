@@ -12,15 +12,12 @@ namespace Lab2
             int checksum = 0;
 
 
-
             Console.WriteLine("Enter the word");
             input = Console.ReadLine();
 
 
-
             // convert to uppercase
             input = input.ToUpper();
-
 
 
             // Get the unicode values of each character
@@ -31,10 +28,8 @@ namespace Lab2
                 message = message + " - ";
 
 
-
                 checksum = checksum + unicodeValue;
             }
-
 
 
             // Print 
