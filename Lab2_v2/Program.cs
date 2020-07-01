@@ -1,68 +1,55 @@
 ﻿using System;
-using System.Security;
-using System.Security.Cryptography.X509Certificates;
 
-namespace Deliverable2
+
+
+namespace Lab2
 {
     class Program
     {
         static void Main(string[] args)
         {
             //declare 3 variables: input will hold the user string input from the console; message will hold the encoded string; checksum will hold the total unicode value of string
+            string input = "";
+            string message = "";
+            int checksum = 0;
 
-            UnicodeEncoding u16 = new UnicodeEncoding(false, true, true);
-            Encoder myEnc = u16.GetEncoder();
-            Decoder myDec = u16.GetDecoder();
 
-            int message;
-            int checksum;
 
-            Console.WriteLine("What is your message? ");
-            string input = Console.ReadLine();
+            Console.WriteLine("Enter the word");
+            input = Console.ReadLine();
 
-            //convert to all upper case
 
-            string ucaseInput = input.ToUpper();
-            Console.WriteLine($"Uppercase: {ucaseInput}");
 
-            //go through the string and find the unicode value of each letter in turn
+            // convert to uppercase
+            input = input.ToUpper();
 
-            string GetUnicodeString(string message)
+
+
+            // Get the unicode values of each character
+            foreach (char c in input)
             {
-                StringBuilder message = new StringBuilder();
+                int unicodeValue = (int)c;
+                message += string.Format("{0:x4}", unicodeValue);
+                message = message + " - ";
 
-                foreach (char c in message)
 
-                    message.Append("\\u" + ((int)c).ToString("X4");
-                message.Append(String.Format("{0:x4}", (int)c));
+
+                checksum = checksum + unicodeValue;
             }
-            return message.ToString();
 
 
-            //print each value with a dash (-) following it 
 
-            Console.WriteLine(message + "-");
+            // Print 
+            Console.WriteLine("Upper case =>  " + input);
+            Console.WriteLine("Unicode message =>  " + message);
+            Console.WriteLine("Checksum => " + checksum);
+
+
+
+            Console.ReadLine();
         }
 
 
-        //add the unicode value for each letter into the checksum
-        //      {
-        //          input = Char.ConvertFromUtf32(input);
-        //      }
 
-        Console.WriteLine(checksum);
-            checksum = Char.ConvertFromUtf32(message);
-            Show(message);
-        Console.WriteLine();
-
-            //add the encoded letter to the message string, followed by a dash
-
-
-            //output the message and the checksum
-            {
-                Console.WriteLine(checksum + "-");
-            }
-
-}
     }
 }
