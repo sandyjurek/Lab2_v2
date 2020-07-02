@@ -1,48 +1,43 @@
 ﻿using System;
+using System.Text;
 
 namespace Lab2
 {
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            //declare 3 variables: input will hold the user string input from the console; message will hold the encoded string; checksum will hold the total unicode value of string
-            string input = "";
-            string message = "";
-            int checksum = 0;
+	class Program
+	{
+		static void Main(string[] args)
+		{
+			string input = "";
+			string message = "";
+			int checksum = 0;
 
+			Console.WriteLine("What is your message?");
 
-            Console.WriteLine("Enter the word");
-            input = Console.ReadLine();
+			input = Console.ReadLine();
 
+			string inputUppercase = input.ToUpper();
+			byte[] asciiValues = Encoding.ASCII.GetBytes(inputUppercase);
 
-            // convert to uppercase
-            input = input.ToUpper();
+			for (int i = 0; i < asciiValues.Length; i++)
+			{
+				int temp = (int)asciiValues[i];
 
+				message += (temp - (int)64);
 
-            // Get the unicode values of each character
-            foreach (char c in input)
-            {
-                int unicodeValue = (int)c;
-                message += string.Format("{0:x4}", unicodeValue);
-                message = message + " - ";
+				//this excludes the last dash
 
+				if (i < asciiValues.Length - 1)
+				{
+					message += "-";
+				}
 
-                checksum = checksum + unicodeValue;
-            }
+				checksum += temp;
+			}
 
-
-            // Print 
-            Console.WriteLine("Upper case =>  " + input);
-            Console.WriteLine("Unicode message =>  " + message);
-            Console.WriteLine("Checksum => " + checksum);
-
-
-
-            Console.ReadLine();
-        }
-
-
-
-    }
+			// Print 
+			Console.WriteLine("Your encoded message is " + message);
+			Console.WriteLine("Message checksum is " + checksum);
+			Console.ReadLine();
+		}
+	}
 }
